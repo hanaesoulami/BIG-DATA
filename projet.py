@@ -74,10 +74,20 @@ borrow.show()
 
 
 #1-Trouver les titres de tous les livres que l'étudiant sid='S15' a emprunté.
-#SQL
+# SQL
+spark.sql(''' select req.bid, bookSQL.title 
+            from (select bid 
+                from bookSQL
+                where bid not in (select bid from borrowSQL) ) req
+            join bookSQL on bookSQL.bid = req.bid ''').show()
 
 
 #DSL
+book.join(borrow,'bid', how ='left') \
+    .select('bid','title') \
+    .filter(F.col("checkout-time").isNull()) \
+    .show()
+
 
 #2-Trouver les titres de tous les livres qui n'ont jamais été empruntés par un étudiant.
 # SQL
