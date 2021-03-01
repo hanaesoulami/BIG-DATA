@@ -175,13 +175,7 @@ borrow.join(Student,'sid') \
     .show()
 #8- Créer une nouvelle colonne dans la table borrow qui prend la valeur 1, si la durée d'emprunt est supérieur à 3 mois,  sinon 0.
 #SQL
-spark.sql('''select *,
-                case 
-                    when duree >= 90 then 1
-                    else 0
-                end as time
-            from (select *, DATEDIFF(TO_DATE(`return-time`,"dd-MM-yyyy"),TO_DATE(`checkout-time`,"dd-MM-yyyy")) as duree
-            from borrowSQL)''').show()
+#???
 
 #DSL
 #????
